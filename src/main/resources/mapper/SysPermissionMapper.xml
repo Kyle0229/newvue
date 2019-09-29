@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.mapper.SysPermissionMapper">
+<select id="selectPermissionByUserName" resultType="com.qf.domain.SysPermission">
+    select p.* from tb_sys_permission p,tb_sys_role r,user u,tb_user_role ur,tb_role_permission rp
+    where p.permission_id = rp.permission_id and rp.role_id = r.role_id and ur.role_id = r.role_id and ur.user_id = u.id and u.name = #{username}
+</select>
+
+</mapper>

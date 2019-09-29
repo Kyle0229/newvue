@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.mapper.UserMapper">
+    <insert id="saveCode" parameterType="com.qf.domain.Code">
+     insert into codes (code,email,status) values(#{code},#{email},#{status})
+    </insert>
+<select id="selectCodeByEmail" resultType="java.lang.String">
+    select code from codes where email = #{name}
+</select>
+    <!--String name;-->
+    <!--String password;-->
+    <!--String sex;-->
+    <!--Integer age;-->
+<insert id="save" parameterType="com.qf.domain.User" >
+    insert into user (name,email,pass,age,sex,address) values(#{name},#{email},#{pass},#{age},#{sex},#{address})
+</insert>
+    <select id="selectAll" resultType="com.qf.domain.User">
+        select * from user
+    </select>
+    <select id="selectOne" resultType="com.qf.domain.User" parameterType="int">
+        select * from user where id = #{id}
+    </select>
+    <select id="selectPsswordByName" resultType="String" >
+        select pass from user where name = #{username}
+    </select>
+    <delete id="delete" parameterType="int">
+        delete from user where id = #{id}
+    </delete>
+    <update id="update" parameterType="com.qf.domain.User">
+        update user
+        <set>
+            <trim suffixOverrides=",">
+                <if test="name!=null and name!=''">
+                    name = #{name},
+                </if>
+                <if test="email!=null and email!=''">
+                    email = #{email},
+                </if>
+                <if test="pass!=null and pass!=''">
+                    pass = #{pass},
+                </if>
+
+                <if test="age!=null ">
+                    age = #{age},
+                </if>
+                <if test="sex!=null and sex!=''">
+                    sex = #{sex},
+                </if>
+                <if test="address!=null and address!=''">
+                    address = #{address},
+                </if>
+            </trim>
+        </set>
+        where id=#{id}
+    </update>
+</mapper>
